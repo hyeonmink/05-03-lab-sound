@@ -2,6 +2,9 @@ package edu.uw.piano;
 
 import android.app.Activity;
 import android.graphics.Rect;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
@@ -13,6 +16,9 @@ import java.util.HashMap;
 public class MainActivity extends Activity {
 
     private static final String TAG = "Piano";
+
+    SoundPool sound;
+    int c, cs, d, ds, e, f, fs, g, gs, a, as, b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +32,38 @@ public class MainActivity extends Activity {
     @SuppressWarnings("deprecation")
     private void initializeSoundPool(){
         //TODO: Create the SoundPool
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
+            //API >= 21
+            AudioAttributes attributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_GAME)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
+
+        }
+        else {
+            //API < 21
+            sound = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+        }
 
         //TODO: Load the sounds
+        int[] keys = new int[12];
+        for(int i = 0; i < 12; i ++){
+            keys[i] = sound.load(this, R.raw.piano_040, 1);
+        }
+//        c = sound.load(this, R.raw.piano_040, 1 );
+//        cs = sound.load(this, R.raw.piano_041, 1 );
+//        d = sound.load(this, R.raw.piano_042, 1 );
+//        ds = sound.load(this, R.raw.piano_043, 1 );
+//        e = sound.load(this, R.raw.piano_044, 1 );
+//        f = sound.load(this, R.raw.piano_045, 1 );
+//        fs = sound.load(this, R.raw.piano_046, 1 );
+//        g = sound.load(this, R.raw.piano_047, 1 );
+//        gs = sound.load(this, R.raw.piano_048, 1 );
+//        a = sound.load(this, R.raw.piano_049, 1 );
+//        as = sound.load(this, R.raw.piano_050, 1 );
+//        b = sound.load(this, R.raw.piano_041, 1 );
+
+
     }
 
 
